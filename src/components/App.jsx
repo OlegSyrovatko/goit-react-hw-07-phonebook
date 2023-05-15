@@ -1,5 +1,5 @@
 import React from 'react';
-import { getContacts } from 'redux/selectors';
+// import { getContacts } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStatusModal } from 'redux/modalSlice';
 import { getModal } from 'redux/selectors';
@@ -10,7 +10,7 @@ import { Spinner } from 'components/Spinner/Spinner';
 
 import Modal from 'components/Modal';
 
-import Filter from 'components/Filter';
+// import Filter from 'components/Filter';
 import ContactForm from 'components/ContactForm';
 import {
   Book,
@@ -22,17 +22,17 @@ import {
 
 export const App = () => {
   const { data: contacts, isFetching } = useFetchContactsQuery();
-  // const showModal = useSelector(getModal);
-  // const dispatch = useDispatch();
-  // const toggleModal = () => {
-  // dispatch(setStatusModal(!showModal));
-  // };
+  const showModal = useSelector(getModal);
+  const dispatch = useDispatch();
+  const toggleModal = () => {
+    dispatch(setStatusModal(!showModal));
+  };
   // const contacts = useSelector(getContacts);
   return (
     <Book>
       <h1>Phonebook</h1>
 
-      {/* <Button type="button" onClick={toggleModal}>
+      <Button type="button" onClick={toggleModal}>
         Add Contact
       </Button>
       {showModal && (
@@ -46,7 +46,7 @@ export const App = () => {
             </ModalItems>
           </ModalBlock>
         </Modal>
-      )} */}
+      )}
       {/* 
       {contacts.length > 0 && (
         <>

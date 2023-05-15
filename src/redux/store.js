@@ -12,7 +12,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { phonebookApi } from './phonebookSlice';
 // import { contactsReducer } from "./contactsSlice";
 // import { filtersReducer } from "./filtersSlice";
-// import { modalReducer } from "./modalSlice";
+import { modalReducer } from "./modalSlice";
 
 
 
@@ -20,6 +20,7 @@ export const store = configureStore({
   reducer: {
     
     [phonebookApi.reducerPath]: phonebookApi.reducer,
+    modal: modalReducer,
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware(),

@@ -21,7 +21,6 @@ import { UL } from './ContactList.styled';
 
 import { ContactListItem } from '../ContactListItem/ContactListItem';
 const ContactList = ({ contacts }) => {
-  console.log(contacts);
   return (
     <UL>
       {contacts.map(contact => (
