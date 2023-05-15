@@ -4,8 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setStatusModal } from 'redux/modalSlice';
 import { getModal } from 'redux/selectors';
 
-import Modal from 'components/Modal';
+import { useFetchContactsQuery } from 'redux/phonebookSlice';
 import ContactList from 'components/ContactList';
+import { Spinner } from 'components/Spinner/Spinner';
+
+import Modal from 'components/Modal';
+
 import Filter from 'components/Filter';
 import ContactForm from 'components/ContactForm';
 import {
@@ -17,16 +21,18 @@ import {
 } from './App.styled';
 
 export const App = () => {
-  const showModal = useSelector(getModal);
-  const dispatch = useDispatch();
-  const toggleModal = () => {
-    dispatch(setStatusModal(!showModal));
-  };
-  const contacts = useSelector(getContacts);
+  const { data: contacts, isFetching } = useFetchContactsQuery();
+  // const showModal = useSelector(getModal);
+  // const dispatch = useDispatch();
+  // const toggleModal = () => {
+  // dispatch(setStatusModal(!showModal));
+  // };
+  // const contacts = useSelector(getContacts);
   return (
     <Book>
       <h1>Phonebook</h1>
-      <Button type="button" onClick={toggleModal}>
+
+      {/* <Button type="button" onClick={toggleModal}>
         Add Contact
       </Button>
       {showModal && (
@@ -40,15 +46,16 @@ export const App = () => {
             </ModalItems>
           </ModalBlock>
         </Modal>
-      )}
-
+      )} */}
+      {/* 
       {contacts.length > 0 && (
         <>
           <h2>Contacts</h2>
           <Filter />
         </>
-      )}
-      <ContactList />
+      )} */}
+      {isFetching && <Spinner />}
+      {contacts && <ContactList contacts={contacts} />}
     </Book>
   );
 };

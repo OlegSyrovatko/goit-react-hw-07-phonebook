@@ -1,33 +1,52 @@
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
-import { contactsReducer } from "./contactsSlice";
-import { filtersReducer } from "./filtersSlice";
-import { modalReducer } from "./modalSlice";
+// import {
+//   persistStore,
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from 'redux-persist';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { phonebookApi } from './phonebookSlice';
+// import { contactsReducer } from "./contactsSlice";
+// import { filtersReducer } from "./filtersSlice";
+// import { modalReducer } from "./modalSlice";
+
+
 
 export const store = configureStore({
   reducer: {
-    contacts: contactsReducer,
-    filters: filtersReducer,
-    modal: modalReducer,
+    
+    [phonebookApi.reducerPath]: phonebookApi.reducer,
   },
-  middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    });
-  },
-
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware(),
+    phonebookApi.middleware,
+  ],
 });
 
-export const persistor = persistStore(store);
+setupListeners(store.dispatch);
+
+
+
+// export const store = configureStore({
+//   reducer: {
+//     contacts: contactsReducer,
+//     filters: filtersReducer,
+//     modal: modalReducer,
+//   },
+//   middleware(getDefaultMiddleware) {
+//     return getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     });
+//   },
+
+// });
+
+// export const persistor = persistStore(store);
 
 
