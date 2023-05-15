@@ -1,16 +1,23 @@
 import { React, useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+
 import { useDispatch } from 'react-redux';
 import { setStatusModal } from 'redux/modalSlice';
-// import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import {
+  useCreateContactMutation,
+  useFetchContactsQuery,
+} from 'redux/phonebookSlice';
+
 import { Button, Form, Label } from './ContactForm.styled';
+// import { toast } from 'react-hot-toast';
+// import toast, { Toaster } from 'react-hot-toast';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  // const contacts = useSelector(getContacts);
+  const [createContact, { isLoading }] = useCreateContactMutation();
+  const { data: contacts } = useFetchContactsQuery();
 
   const handleName = e => {
     setName(e.currentTarget.value);
@@ -22,15 +29,18 @@ const ContactForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // const isNameExists = contacts.some(
-    //   contact => contact.name?.toLowerCase() === name.toLowerCase()
-    // );
+    const isNameExists = contacts.some(
+      contact => contact.name?.toLowerCase() === name.toLowerCase()
+    );
 
-    // if (isNameExists) {
-    //   return alert(`${name} is already in contacts`);
-    // }
+    if (isNameExists) {
+      // toast.error(`${name} is already in contacts`);
+      return;
+    }
 
-    dispatch(addContact(name, number));
+    createContact({ name: name, number: number });
+
+    // toast.success('Contact created!');
     setName('');
     setNumber('');
     dispatch(setStatusModal(false));
@@ -38,7 +48,7 @@ const ContactForm = () => {
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form autoComplete="off" onSubmit={handleSubmit}>
         <Label htmlFor="name">
           <p>Name:</p>
           <input
@@ -64,7 +74,9 @@ const ContactForm = () => {
           />
         </Label>
         <br />
-        <Button type="submit">Add Contact</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading && <Spinner size={12} />} Add Contact
+        </Button>
       </Form>
     </>
   );

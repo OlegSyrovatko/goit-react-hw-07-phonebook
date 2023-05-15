@@ -27,7 +27,7 @@ export const App = () => {
   const toggleModal = () => {
     dispatch(setStatusModal(!showModal));
   };
-  // const contacts = useSelector(getContacts);
+
   return (
     <Book>
       <h1>Phonebook</h1>

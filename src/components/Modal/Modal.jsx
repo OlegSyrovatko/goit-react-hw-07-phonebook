@@ -1,6 +1,7 @@
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { setStatusModal } from 'redux/modalSlice';
 
 import { Backdrop, ModalContent } from './Modal.styled';

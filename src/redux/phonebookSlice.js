@@ -19,11 +19,11 @@ export const phonebookApi = createApi({
       invalidatesTags: ['Contact'],
     }),
     createContact: builder.mutation({
-      query: contactContent => ({
+      query: ({ name, number }) => ({
         url: '/contacts',
         method: 'POST',
         body: {
-          name: contactContent,
+          name, number
         },
       }),
       invalidatesTags: ['Contact'],
