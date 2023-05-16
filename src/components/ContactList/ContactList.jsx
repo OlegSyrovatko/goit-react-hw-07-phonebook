@@ -1,32 +1,29 @@
-// import { getContacts, getFilter } from 'redux/selectors';
+import { getFilter } from 'redux/selectors';
+import { useSelector } from 'react-redux';
+import Filter from 'components/Filter';
+
+import { ContactListItem } from '../ContactListItem/ContactListItem';
 
 import { UL } from './ContactList.styled';
 
-//   const contacts = useSelector(getContacts);
-
-//   const filter = useSelector(getFilter);
-//   const dispatch = useDispatch();
-//   const handleDelete = function (id) {
-//     dispatch(deleteContact(id));
-//   };
-
-//   const filterContacts = () => {
-//     const lowerFilter = filter.toLowerCase();
-//     return contacts.filter(contact =>
-//       contact.name.toLowerCase().includes(lowerFilter)
-//     );
-//   };
-
-//   const visibleContacts = filterContacts();
-
-import { ContactListItem } from '../ContactListItem/ContactListItem';
 const ContactList = ({ contacts }) => {
+  const filter = useSelector(getFilter);
+  const lowerFilter = filter.toLowerCase();
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(lowerFilter)
+  );
   return (
-    <UL>
-      {contacts.map(contact => (
-        <ContactListItem key={contact.id} {...contact} />
-      ))}
-    </UL>
+    <>
+      <h2>Contacts</h2>
+      <Filter />
+      {filteredContacts.length > 0 && (
+        <UL>
+          {filteredContacts.map(contact => (
+            <ContactListItem key={contact.id} {...contact} />
+          ))}
+        </UL>
+      )}
+    </>
   );
 };
 export default ContactList;

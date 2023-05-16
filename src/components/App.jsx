@@ -1,5 +1,4 @@
 import React from 'react';
-// import { getContacts } from 'redux/selectors';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStatusModal } from 'redux/modalSlice';
 import { getModal } from 'redux/selectors';
@@ -10,7 +9,6 @@ import { Spinner } from 'components/Spinner/Spinner';
 
 import Modal from 'components/Modal';
 
-// import Filter from 'components/Filter';
 import ContactForm from 'components/ContactForm';
 import {
   Book,
@@ -47,13 +45,7 @@ export const App = () => {
           </ModalBlock>
         </Modal>
       )}
-      {/* 
-      {contacts.length > 0 && (
-        <>
-          <h2>Contacts</h2>
-          <Filter />
-        </>
-      )} */}
+
       {isFetching && <Spinner />}
       {contacts && <ContactList contacts={contacts} />}
     </Book>

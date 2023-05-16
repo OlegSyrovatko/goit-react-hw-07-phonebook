@@ -11,7 +11,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { phonebookApi } from './phonebookSlice';
 // import { contactsReducer } from "./contactsSlice";
-// import { filtersReducer } from "./filtersSlice";
+import { filterReducer } from "./filtersSlice";
 import { modalReducer } from "./modalSlice";
 
 
@@ -21,6 +21,7 @@ export const store = configureStore({
     
     [phonebookApi.reducerPath]: phonebookApi.reducer,
     modal: modalReducer,
+    filters: filterReducer,
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware(),
