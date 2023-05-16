@@ -1,12 +1,11 @@
 import { React, useState } from 'react';
-import { useDispatch } from 'react-redux';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setStatusFilter } from 'redux/filtersSlice';
-// import { getFilter } from 'redux/selectors';
+import { getFilter } from 'redux/selectors';
 import { Find } from './Filter.styled';
 
 const Filter = () => {
-  // const filterDefault = useSelector(getFilter);
+  const filterDefault = useSelector(getFilter);
   const [filter, setFilter] = useState('');
   const dispatch = useDispatch();
   const handleChange = e => {
@@ -21,8 +20,7 @@ const Filter = () => {
       <input
         type="text"
         name="filter"
-        // value={filter || filterDefault}
-        value={filter}
+        value={filter || filterDefault}
         onChange={handleChange}
       />
     </Find>

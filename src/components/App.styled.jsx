@@ -1,8 +1,14 @@
 import styled from '@emotion/styled';
+
 export const ModalItems = styled.div`
   display: flex;
   gap: 15px;
   flex-direction: column;
+`;
+
+export const ContactsHead = styled.div`
+  display: flex;
+  gap: 15px;
 `;
 
 export const ModalBlock = styled.div`

@@ -16,6 +16,7 @@ import {
   CloseButton,
   ModalBlock,
   ModalItems,
+  ContactsHead,
 } from './App.styled';
 
 export const App = () => {
@@ -29,10 +30,11 @@ export const App = () => {
   return (
     <Book>
       <h1>Phonebook</h1>
-
-      <Button type="button" onClick={toggleModal}>
-        Add Contact
-      </Button>
+      <ContactsHead>
+        <Button type="button" onClick={toggleModal}>
+          Add Contact
+        </Button>
+      </ContactsHead>
       {showModal && (
         <Modal>
           <ModalBlock>
@@ -45,8 +47,12 @@ export const App = () => {
           </ModalBlock>
         </Modal>
       )}
-
-      {isFetching && <Spinner />}
+      {!contacts && isFetching && (
+        <>
+          <br />
+          <Spinner />
+        </>
+      )}
       {contacts && <ContactList contacts={contacts} />}
     </Book>
   );

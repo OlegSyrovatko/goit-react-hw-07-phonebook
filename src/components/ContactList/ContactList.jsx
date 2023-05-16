@@ -1,7 +1,7 @@
 import { getFilter } from 'redux/selectors';
 import { useSelector } from 'react-redux';
-import Filter from 'components/Filter';
 
+import Filter from 'components/Filter';
 import { ContactListItem } from '../ContactListItem/ContactListItem';
 
 import { UL } from './ContactList.styled';
