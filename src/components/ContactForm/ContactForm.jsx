@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
-
 import { useDispatch } from 'react-redux';
+
 import { setStatusModal } from 'redux/modalSlice';
 import {
   useCreateContactMutation,
@@ -8,15 +8,14 @@ import {
 } from 'redux/phonebookSlice';
 
 import { Button, Form, Label } from './ContactForm.styled';
-// import { toast } from 'react-hot-toast';
-// import toast, { Toaster } from 'react-hot-toast';
+import Notiflix from 'notiflix';
 import { Spinner } from 'components/Spinner/Spinner';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const [createContact, { isLoading }] = useCreateContactMutation();
+  const [createContact, { isLoading, error }] = useCreateContactMutation();
   const { data: contacts } = useFetchContactsQuery();
 
   const handleName = e => {
@@ -34,13 +33,18 @@ const ContactForm = () => {
     );
 
     if (isNameExists) {
-      // toast.error(`${name} is already in contacts`);
+      Notiflix.Notify.warning(`${name} is already in contacts`);
       return;
     }
 
     createContact({ name: name, number: number });
+    if (error) {
+      Notiflix.Notify.failure(error.message);
+      return;
+    }
 
-    // toast.success('Contact created!');
+    Notiflix.Notify.success(isLoading);
+
     setName('');
     setNumber('');
     dispatch(setStatusModal(false));
